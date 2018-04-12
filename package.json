@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "express": "^4.16.2",
+    "material-ui": "^1.0.0-beta.41",
     "nodemon": "^1.14.7",
     "prop-types": "^15.6.0",
     "react": "^16.3.1",

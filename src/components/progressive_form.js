@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class ProgressiveForm extends Component {
   state = {
-    activeStep: 0
+    activeStep: this.props.activeStep || 0  // TODO дать возможность динамически его изменить
   }
 
   nextStep(fromStep) {
@@ -12,7 +12,7 @@ class ProgressiveForm extends Component {
 
   render() {
     const { children } = this.props;
-    const { activeStep } = this.state; // TODO дать возможность выставить его сверху
+    const { activeStep } = this.state;
 
     const childrenArray = React.Children.toArray(children);
     const steps = childrenArray.map((step, index) => {

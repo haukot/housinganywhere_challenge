@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import ProgressiveForm from './components/progressive_form.js';
+import Step from './components/step.js';
 
 class App extends Component {
   render() {
@@ -10,9 +12,33 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+
+        <ProgressiveForm>
+            <Step>
+                { (nextStep) =>
+                 <div>
+                    <input type='checkbox' onChange={nextStep} /> A1
+                    <input type='checkbox' onChange={nextStep} /> A2
+                 </div>
+                 }
+            </Step>
+            <Step>
+                { (nextStep) =>
+                 <div>
+                    <input type='checkbox' onChange={nextStep} /> A1
+                    <input type='checkbox' onChange={nextStep} /> A2
+                 </div>
+                 }
+            </Step>
+            <Step>
+                { (nextStep) =>
+                 <div>
+                    <input type='checkbox' onChange={nextStep} /> A1
+                    <input type='checkbox' onChange={nextStep} /> A2
+                 </div>
+                 }
+            </Step>
+        </ProgressiveForm>
       </div>
     );
   }

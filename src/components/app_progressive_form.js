@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Field, reduxForm } from 'redux-form';
+import { reduxForm, Field, SubmissionError } from 'redux-form';
 import {
   FormLabel,
   FormControl,
@@ -8,6 +8,7 @@ import {
   FormControlLabel,
   FormHelperText,
 } from 'material-ui/Form';
+import { CircularProgress } from 'material-ui/Progress';
 import MaterialSwitch from 'material-ui/Switch';
 import Button from 'material-ui/Button';
 import { InputLabel } from 'material-ui/Input';
@@ -21,6 +22,7 @@ import {
 
 import ProgressiveForm from './progressive_form';
 import Step from './progressive_form/step';
+import { submit } from '../utils/api';
 
 class AppProgressiveForm extends Component {
   step1(nextStep) {
@@ -86,10 +88,19 @@ class AppProgressiveForm extends Component {
   }
 
   finalStep(nextStep) {
+    const { handleSubmit, submitting, submitSucceeded, error } = this.props;
     return (
-        <Button type='submit' variant="raised" color="primary" onClick={nextStep}>
-            Submit
+      <div>
+          <Button variant="raised"
+                  color="primary"
+                  onClick={handleSubmit(submitForm)}
+                  disabled={submitting}
+                  >
+          {submitting ? <CircularProgress size={20} /> : 'Save'}
         </Button>
+        { submitSucceeded && <strong> All is okay </strong> }
+        { error && <strong> { error } </strong> }
+      </div>
     );
   }
 
@@ -97,16 +108,24 @@ class AppProgressiveForm extends Component {
     const steps = [this.step1, this.step2, this.step3, this.step4, this.finalStep]
     // TODO мб можно вообще выкинуть компонент Step, рендерить текущую функцию
     return (
-      <ProgressiveForm activeStep={0}>
-          { steps.map((step) => <Step key={step} render={step} />) }
+      <ProgressiveForm activeStep={5}>
+          { steps.map((step) => <Step key={step} render={step.bind(this)} />) }
       </ProgressiveForm>
     );
   }
 };
 
+const submitForm = (values) => {
+  // TODO format values to json
+  return submit(values).catch((err) => {
+    throw new SubmissionError({_error: err.message})
+  });
+}
+
 AppProgressiveForm = reduxForm({
   form: 'myForm',
-  touchOnChange: true
+  touchOnChange: true,
+  onSubmit: submitForm
 })(AppProgressiveForm)
 
 export default AppProgressiveForm;

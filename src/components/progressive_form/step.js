@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 
 class Step extends Component {
   render() {
-    const { active, disabled } = this.props;
+    const { children, nextStep, render } = this.props;
+    const contentFn = children || render;
     return (
       <div style={{margin: 20}}>
-          {this.props.children(this.props.nextStep)}
+          {contentFn(nextStep)}
       </div>
     );
   }

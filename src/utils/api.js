@@ -1,6 +1,7 @@
 export function validate(value) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
+      console.log(`Validation response ${value}`);
       if (Math.random() < 0.8) {
         if (value && value.length > 8 && /^(a|e|i|o|u)/.test(value)) {
           resolve()

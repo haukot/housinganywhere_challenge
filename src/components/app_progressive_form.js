@@ -20,10 +20,11 @@ import {
 
 import ProgressiveForm from './progressive_form';
 import Step from './progressive_form/step';
+import UsernameInput from './username_input';
 
 let AppProgressiveForm = () => {
   return (
-    <ProgressiveForm activeStep={0}>
+    <ProgressiveForm activeStep={3}>
         <Step>
             { (nextStep) =>
                 <FormControl component="fieldset">
@@ -63,7 +64,7 @@ let AppProgressiveForm = () => {
         <Step>
             { (nextStep) =>
                 <div>
-                    <Field name="username" component={TextField} label="Username"/>
+                    <UsernameInput />
                     <Button variant="raised" color="primary" onClick={nextStep}>
                         Confirm
                     </Button>
@@ -73,7 +74,7 @@ let AppProgressiveForm = () => {
         <Step>
             { (nextStep) =>
                 <FormControl style={{minWidth: 200}}>
-                    <InputLabel htmlFor="selectC">Select something</InputLabel>
+                    <InputLabel> Select something </InputLabel>
                     <Field name="c" component={Select} onChange={nextStep}>
                         <option value='C1'>C1</option>
                         <option value='C2'>C2</option>
@@ -84,7 +85,7 @@ let AppProgressiveForm = () => {
         </Step>
         <Step>
             { (nextStep) =>
-                <Button variant="raised" color="primary" onClick={nextStep}>
+                <Button type='submit' variant="raised" color="primary" onClick={nextStep}>
                   Submit
                 </Button>
             }
@@ -94,7 +95,8 @@ let AppProgressiveForm = () => {
 };
 
 AppProgressiveForm = reduxForm({
-  form: 'myForm'
+  form: 'myForm',
+  touchOnChange: true
 })(AppProgressiveForm)
 
 export default AppProgressiveForm;

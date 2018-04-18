@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-
 import { reduxForm, Field, SubmissionError } from 'redux-form';
+
 import {
-  FormLabel,
   FormControl,
   FormGroup,
   FormControlLabel,
-  FormHelperText,
 } from 'material-ui/Form';
 import { CircularProgress } from 'material-ui/Progress';
 import MaterialSwitch from 'material-ui/Switch';
@@ -14,29 +12,26 @@ import Button from 'material-ui/Button';
 import { InputLabel } from 'material-ui/Input';
 
 import {
-  Checkbox,
   RadioGroup,
   Select,
   TextField,
 } from 'redux-form-material-ui'
 
+import MaterialCheckboxGroup from './CheckboxGroup/material-ui';
 import ProgressiveForm from './progressive_form';
 import Step from './progressive_form/step';
 import { submit } from '../utils/api';
 
 class AppProgressiveForm extends Component {
   step1(nextStep) {
+    const options = [{ label: 'A1', value: 'A1' }, { label: 'A2', value: 'A2' }]
     return (
         <FormControl component="fieldset">
-            <FormControlLabel
-                control={<Field name="A1" component={Checkbox}/>}
+            <Field
+                component={MaterialCheckboxGroup}
+                name="a"
+                options={options}
                 onChange={nextStep}
-                label="A1"
-            />
-            <FormControlLabel
-                control={<Field name="A2" component={Checkbox}/>}
-                onChange={nextStep}
-                label="A2"
             />
         </FormControl>
     );
@@ -116,7 +111,6 @@ class AppProgressiveForm extends Component {
 };
 
 const submitForm = (values) => {
-  // TODO format values to json
   return submit(values).catch((err) => {
     throw new SubmissionError({_error: err.message})
   });

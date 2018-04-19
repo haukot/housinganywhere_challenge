@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects'
+import { put, takeLatest, all } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import { validate } from '../utils/api'
 
@@ -30,7 +30,7 @@ const formChangeAction = (input) => ({ type, meta, payload }) =>
       type === '@@redux-form/CHANGE' && meta.field === input;
 
 export default function* () {
-  yield [
+  yield all([
     takeLatest(formChangeAction('username'), formDebounceValidation('username', validate))
-  ]
+  ])
 }

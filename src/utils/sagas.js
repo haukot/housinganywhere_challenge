@@ -1,10 +1,15 @@
+// NOTE disable because it's utils module
+/* eslint-disable import/prefer-default-export */
+
 export const runGenerator = (gen) => {
-  let value, done;
+  let res;
   while (true) {
-    const res = gen.next();
-    done = res.done;
-    if (done) break;
-    value = res.value;
+    const { done, value } = gen.next();
+    if (done) {
+      break;
+    } else {
+      res = value;
+    }
   }
-  return value;
-}
+  return res;
+};

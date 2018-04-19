@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class ProgressiveForm extends Component {
   state = {
-    activeStep: this.props.activeStep || 0  // TODO дать возможность динамически его изменить
+    activeStep: this.props.activeStep || 0
   }
 
   nextStep(fromStep) {
@@ -22,7 +22,7 @@ class ProgressiveForm extends Component {
         nextStep: () => this.nextStep(index),
       };
 
-      // FIXME этот style и div странный. Если забить на анимации можно было бы просто не рендерить
+      // TODO maybe simply don't render if component don't need transition animations
       return [
         <div key={index} style={ {display: controlProps.active ? 'block' : 'none'} } >
              { React.cloneElement(step, { ...controlProps, ...step.props }) }

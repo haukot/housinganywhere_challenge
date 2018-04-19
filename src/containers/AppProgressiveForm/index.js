@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 
+// TODO use css-modules
+import './index.css'
+
 import {
   FormControl,
   FormGroup,
@@ -17,10 +20,10 @@ import {
   TextField,
 } from 'redux-form-material-ui'
 
-import MaterialCheckboxGroup from './CheckboxGroup/material-ui';
-import ProgressiveForm from './progressive_form';
-import Step from './progressive_form/step';
-import { submit } from '../utils/api';
+import MaterialCheckboxGroup from '../../components/CheckboxGroup/MaterialCheckboxGroup';
+import ProgressiveForm from '../../components/ProgressiveForm';
+import Step from '../../components/ProgressiveForm/Step';
+import { submit } from '../../utils/api';
 
 class AppProgressiveForm extends Component {
   step1(nextStep) {
@@ -61,7 +64,7 @@ class AppProgressiveForm extends Component {
   step3(nextStep) {
     return (
         <div>
-            <Field name="username" component={TextField} label="Username"/>
+            <Field className="control" name="username" component={TextField} label="Username"/>
             <Button variant="raised" color="primary" onClick={nextStep}>
                 Confirm
             </Button>
@@ -71,7 +74,7 @@ class AppProgressiveForm extends Component {
 
   step4(nextStep) {
     return (
-        <FormControl style={{minWidth: 200}}>
+        <FormControl className="control">
             <InputLabel> Select something </InputLabel>
             <Field name="c" component={Select} onChange={nextStep}>
                 <option value='C1'>C1</option>

@@ -2,7 +2,7 @@ import { put, takeLatest, all } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import { validate } from '../utils/api'
 
-function formDebounceValidation(input, validateFn) {
+export const formDebounceValidation = (input, validateFn) => {
   return function* ({ payload, meta }) {
     yield delay(200) // debounce
 
@@ -26,7 +26,7 @@ function formDebounceValidation(input, validateFn) {
   }
 }
 
-const formChangeAction = (input) => ({ type, meta, payload }) =>
+export const formChangeAction = (input) => ({ type, meta, payload }) =>
       type === '@@redux-form/CHANGE' && meta.field === input;
 
 export default function* () {
